@@ -1,4 +1,3 @@
-// App.js
 import React, { Component } from 'react';
 import '../app/app.css';
 import Counter from "../counter/counter";
@@ -16,16 +15,21 @@ export default class App extends Component {
     };
 
     handleReset = () => {
-        this.setState({ value: 0 });
+        this.setState({ value: 0 }, () => {
+            this.counterRef.handleReset();
+        });
     };
 
     render() {
         return (
-            <Counter
-                value={this.state.value}
-                onUpdateValue={this.handleUpdateValue}
-                onReset={this.handleReset}
-            />
+            <div>
+                <Counter
+                    ref={(ref) => this.counterRef = ref}
+                    value={this.state.value}
+                    onUpdateValue={this.handleUpdateValue}
+                    onReset={this.handleReset}
+                />
+            </div>
         );
     }
 }
